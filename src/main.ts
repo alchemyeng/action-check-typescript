@@ -44,7 +44,7 @@ async function run(): Promise<void> {
 
     const octokit = getOctokit(args.repoToken)
 
-    const removalSection = `-exec sh -c 'echo "// @ts-nocheck" > /tmp/file.tmp && cat "$1" >> /tmp/file.tmp && mv /tmp/file.tmp "$1"' _ {} \;`
+    const removalSection = `-exec sh -c 'echo "// @ts-nocheck" > /tmp/file.tmp && cat "$1" >> /tmp/file.tmp && mv /tmp/file.tmp "$1"' _ {} ;`
 
     const pr = github.context.payload.pull_request
 
@@ -82,9 +82,9 @@ async function run(): Promise<void> {
     startGroup(`[current branch] Execute Exclusions`)
 
     info(`Executing exclusions on current branch`)
-    await exec(`find node_modules/realm-flipper-plugin-device -type f -name '*.ts' ${removalSection}`, [], execOptions)
-    await exec(`find node_modules -type f -name '*.tsx' ${removalSection}`, [], execOptions)
-    await exec(`find e2e -type f -name '*.ts' ${removalSection}`, [], execOptions)
+    await exec(`find ${path.join(workingDir, 'node_modules/realm-flipper-plugin-device')} -type f -name '*.ts' ${removalSection}`, [], execOptions)
+    await exec(`find ${path.join(workingDir, 'node_modules')} -type f -name '*.tsx' ${removalSection}`, [], execOptions)
+    await exec(`find ${path.join(workingDir, 'e2e')} -type f -name '*.ts' ${removalSection}`, [], execOptions)
     
     endGroup()
 
@@ -128,9 +128,9 @@ async function run(): Promise<void> {
     startGroup(`[base branch] Execute Exclusions`)
 
     info(`Executing exclusions on base branch`)
-    await exec(`find node_modules/realm-flipper-plugin-device -type f -name '*.ts' ${removalSection}`, [], execOptions)
-    await exec(`find node_modules -type f -name '*.tsx' ${removalSection}`, [], execOptions)
-    await exec(`find e2e -type f -name '*.ts' ${removalSection}`, [], execOptions)
+    await exec(`find ${path.join(workingDir, 'node_modules/realm-flipper-plugin-device')} -type f -name '*.ts' ${removalSection}`, [], execOptions)
+    await exec(`find ${path.join(workingDir, 'node_modules')} -type f -name '*.tsx' ${removalSection}`, [], execOptions)
+    await exec(`find ${path.join(workingDir, 'e2e')} -type f -name '*.ts' ${removalSection}`, [], execOptions)
     
     endGroup()
 
