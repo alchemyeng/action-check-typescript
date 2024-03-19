@@ -44,8 +44,7 @@ async function run(): Promise<void> {
 
     const octokit = getOctokit(args.repoToken)
 
-    // eslint-disable-next-line no-useless-escape
-    const removalSection = `-exec sh -c 'echo \"// @ts-nocheck\" > /tmp/file.tmp && cat \"$1\" >> /tmp/file.tmp && mv /tmp/file.tmp \"$1\"' _ {} \;`
+    const removalSection = `-exec sh -c 'echo \\"// @ts-nocheck\\" > /tmp/file.tmp && cat \\"$1\\" >> /tmp/file.tmp && mv /tmp/file.tmp \\"$1\\"' _ {} \\;`
 
     const pr = github.context.payload.pull_request
 
