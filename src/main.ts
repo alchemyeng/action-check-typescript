@@ -82,9 +82,10 @@ async function run(): Promise<void> {
     startGroup(`[current branch] Execute Exclusions`)
 
     info(`Executing exclusions on current branch`)
-    await exec(`find ${path.join(workingDir, 'node_modules/realm-flipper-plugin-device')} -type f -name '*.ts' ${removalSection}`, [], execOptions)
-    await exec(`find ${path.join(workingDir, 'node_modules')} -type f -name '*.tsx' ${removalSection}`, [], execOptions)
-    await exec(`find ${path.join(workingDir, 'e2e')} -type f -name '*.ts' ${removalSection}`, [], execOptions)
+
+    await exec(`/bin/bash \`find ${path.join(workingDir, 'node_modules/realm-flipper-plugin-device')} -type f -name '*.ts' ${removalSection}\``, [], execOptions)
+    await exec(`/bin/bash \`find ${path.join(workingDir, 'node_modules')} -type f -name '*.tsx' ${removalSection}\``, [], execOptions)
+    await exec(`/bin/bash \`find ${path.join(workingDir, 'e2e')} -type f -name '*.ts' ${removalSection}\``, [], execOptions)
     
     endGroup()
 
@@ -128,9 +129,9 @@ async function run(): Promise<void> {
     startGroup(`[base branch] Execute Exclusions`)
 
     info(`Executing exclusions on base branch`)
-    await exec(`find ${path.join(workingDir, 'node_modules/realm-flipper-plugin-device')} -type f -name '*.ts' ${removalSection}`, [], execOptions)
-    await exec(`find ${path.join(workingDir, 'node_modules')} -type f -name '*.tsx' ${removalSection}`, [], execOptions)
-    await exec(`find ${path.join(workingDir, 'e2e')} -type f -name '*.ts' ${removalSection}`, [], execOptions)
+    await exec(`/bin/bash \`find ${path.join(workingDir, 'node_modules/realm-flipper-plugin-device')} -type f -name '*.ts' ${removalSection}\``, [], execOptions)
+    await exec(`/bin/bash \`find ${path.join(workingDir, 'node_modules')} -type f -name '*.tsx' ${removalSection}\``, [], execOptions)
+    await exec(`/bin/bash \`find ${path.join(workingDir, 'e2e')} -type f -name '*.ts' ${removalSection}\``, [], execOptions)
     
     endGroup()
 
