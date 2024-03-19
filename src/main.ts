@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 import { info, startGroup, endGroup, error, setFailed } from '@actions/core'
 import * as path from 'path'
 import { context, getOctokit } from '@actions/github'
@@ -45,8 +44,8 @@ async function run(): Promise<void> {
 
     const octokit = getOctokit(args.repoToken)
 
-    const removalSection = `-exec sh -c \'echo \\"// @ts-nocheck\\" > /tmp/file.tmp && cat \\"$1\\" >> /tmp/file.tmp && mv /tmp/file.tmp \\"$1\\"\' _ {} \\;`
-
+    const removalSection = `-exec sh -c 'echo "// @ts-nocheck" > /tmp/file.tmp && cat "$1" >> /tmp/file.tmp && mv /tmp/file.tmp "$1"' _ {} \\;`
+    
     const pr = github.context.payload.pull_request
 
     if (!pr) {
@@ -84,10 +83,10 @@ async function run(): Promise<void> {
 
     info(`Executing exclusions on current branch`)
 
-    await exec(`/bin/bash -c \`find ${path.join(workingDir, 'node_modules/realm-flipper-plugin-device')} -type f -name \'*.ts\' ${removalSection}\``, [], execOptions)
-    await exec(`/bin/bash -c \`find ${path.join(workingDir, 'node_modules')} -type f -name \'*.tsx\' ${removalSection}\``, [], execOptions)
-    await exec(`/bin/bash -c \`find ${path.join(workingDir, 'e2e')} -type f -name \'*.ts\' ${removalSection}\``, [], execOptions)
-    
+    await exec(`/bin/bash -c 'find ${path.join(workingDir, 'node_modules/realm-flipper-plugin-device')} -type f -name "*.ts" ${removalSection}'`, [], execOptions)
+    await exec(`/bin/bash -c 'find ${path.join(workingDir, 'node_modules')} -type f -name "*.tsx" ${removalSection}'`, [], execOptions)
+    await exec(`/bin/bash -c 'find ${path.join(workingDir, 'e2e')} -type f -name "*.ts" ${removalSection}'`, [], execOptions)
+
     endGroup()
 
     startGroup(`[current branch] compile ts files`)
@@ -130,10 +129,11 @@ async function run(): Promise<void> {
     startGroup(`[base branch] Execute Exclusions`)
 
     info(`Executing exclusions on base branch`)
-    await exec(`/bin/bash -c \`find ${path.join(workingDir, 'node_modules/realm-flipper-plugin-device')} -type f -name \'*.ts\' ${removalSection}\``, [], execOptions)
-    await exec(`/bin/bash -c \`find ${path.join(workingDir, 'node_modules')} -type f -name \'*.tsx\' ${removalSection}\``, [], execOptions)
-    await exec(`/bin/bash -c \`find ${path.join(workingDir, 'e2e')} -type f -name \'*.ts\' ${removalSection}\``, [], execOptions)
-    
+
+    await exec(`/bin/bash -c 'find ${path.join(workingDir, 'node_modules/realm-flipper-plugin-device')} -type f -name "*.ts" ${removalSection}'`, [], execOptions)
+    await exec(`/bin/bash -c 'find ${path.join(workingDir, 'node_modules')} -type f -name "*.tsx" ${removalSection}'`, [], execOptions)
+    await exec(`/bin/bash -c 'find ${path.join(workingDir, 'e2e')} -type f -name "*.ts" ${removalSection}'`, [], execOptions)
+
     endGroup()
 
     startGroup(`[base branch] compile ts files`)
