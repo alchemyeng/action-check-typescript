@@ -83,7 +83,6 @@ async function run(): Promise<void> {
 
     info(`Executing exclusions on current branch`)
 
-    await exec(`/bin/bash -c "find ${path.join(workingDir, 'node_modules/realm-flipper-plugin-device')} -type f -name '*.ts' ${removalSection}"`, [], execOptions)
     await exec(`/bin/bash -c "find ${path.join(workingDir, 'node_modules')} -type f -name '*.tsx' ${removalSection}"`, [], execOptions)
     await exec(`/bin/bash -c "find ${path.join(workingDir, 'e2e')} -type f -name '*.ts' ${removalSection}"`, [], execOptions)
 
@@ -130,7 +129,6 @@ async function run(): Promise<void> {
 
     info(`Executing exclusions on base branch`)
 
-    await exec(`/bin/bash -c "find ${path.join(workingDir, 'node_modules/realm-flipper-plugin-device')} -type f -name '*.ts' ${removalSection}"`, [], execOptions)
     await exec(`/bin/bash -c "find ${path.join(workingDir, 'node_modules')} -type f -name '*.tsx' ${removalSection}"`, [], execOptions)
     await exec(`/bin/bash -c "find ${path.join(workingDir, 'e2e')} -type f -name '*.ts' ${removalSection}"`, [], execOptions)
 
